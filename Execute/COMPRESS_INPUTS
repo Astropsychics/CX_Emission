@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd ..
+
+tar -jcf Inputs.tar.bz2 Inputs/
+
+cd Execute
