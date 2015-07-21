@@ -10,7 +10,8 @@
 
 using namespace std;
 
-int cx_calculations(double energy_start, double energy_end, double energy_step, double width){
+int cx_calculations(double energy_start, double energy_end,
+                    double energy_step, double width, int comet_number){
 
 
     //calculates numbers of steps and creates appropriately-sized array
@@ -29,7 +30,7 @@ int cx_calculations(double energy_start, double energy_end, double energy_step, 
     int cx_elements = input_cx_elements;
     //calculates sum of ratio required for future normalization
     double sum = 0;
-    for (int a = 0; a < cx_elements; a++) sum += input_cx_sigma[a]*input_cx_n[a];
+    for (int a = 0; a < cx_elements; a++) sum += input_cx_sigma[a]*input_cx_n[comet_number][a];
 
     //defines cx spectrum array
     vector<double> cx_spectrum(energy_row, 0);
@@ -37,7 +38,8 @@ int cx_calculations(double energy_start, double energy_end, double energy_step, 
     //calculates cx emissions for each element
     for ( int x = 0; x < cx_elements; x++ ){
 
-        //input strings dependent on whether calculations are performed for high or low solar wind activity
+        //input strings dependent on whether calculations are performed
+        //for high or low solar wind activity
         string sw_hilow;
         string line_name;
         double eta = 0;
@@ -47,12 +49,12 @@ int cx_calculations(double energy_start, double energy_end, double energy_step, 
 
         if ( sw_activity == 1 ){
             line_name = input_cx_line_name_low[x];
-            eta = 1/1780.0 * input_cx_n[x] * input_cx_sigma[x] / sum;
+            eta = 1/1780.0 * input_cx_n[comet_number][x] * input_cx_sigma[x] / sum;
             sw_hilow = "Low"; }
 
         if (sw_activity == 2 ){
             line_name = input_cx_line_name_high[x];
-            eta = 1/1550.0 * input_cx_n[x] * input_cx_sigma[x] / sum;
+            eta = 1/1550.0 * input_cx_n[comet_number][x] * input_cx_sigma[x] / sum;
             sw_hilow = "High"; }
 
         //reads in line spectrum

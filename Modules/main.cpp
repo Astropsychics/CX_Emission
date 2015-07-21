@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
 
     //Prompts user to calculate chi-square for all comets with the necessary data
     if ( comet_number == 6 || comet_number == 7 ){
-        cout << "Good news everyone! \n"
+        cout << "Good news, everyone! \n"
              << "Chi-square can be calculated for the comet you selected. \n"
              << "For these calculations to be performed, please enter '1'. \n"
              << "Otherwise, enter '0'. \n";
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]){
     }
 
     //performs cx calculations that will be scaled to the comet later
-    cx_calculations(energy_start, energy_end, energy_step, width);
+    cx_calculations(energy_start, energy_end, energy_step, width, comet_number);
 
     //calculates scaling factor for the comet
     cx_compare(energy_start, energy_end, energy_step, comet_number);
