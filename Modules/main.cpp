@@ -26,17 +26,18 @@ int main(int argc, char *argv[]){
 	//Prompt user to select which comet to analyze
     cout << "\n Welcome to the Cometary CX Model. \n \n"
          << "Please select the number of which comet you'd like to analyze. \n"
-         << "1.8P  2.Encke  3.IZ  4.LS4 \n"
-         << "5.MH  6.ISON  7.PanSTARRS \n";
+         << "1.8P  2.Encke  3.IZ  4.LS4  5.MH  6.ISON  7.PanSTARRS \n"
+         << "8.ISON(Visit 1)  9.ISON(Visit 2)  10. ISON(Visit 3) \n";
 	cin >> comet_number;
     cout << endl;
 
-	if ( 1 > comet_number || comet_number > 7 ){
+	if ( 1 > comet_number || comet_number > 10 ){
 		cout << "I'm sorry, Dave. I can't do that. \n";
 		return 0; }
 
     //Prompts user to calculate chi-square for all comets with the necessary data
-    if ( comet_number == 6 || comet_number == 7 ){
+    if ( comet_number == 6 || comet_number == 7 || comet_number == 8
+            || comet_number == 9 || comet_number == 10 ){
         cout << "Good news, everyone! \n"
              << "Chi-square can be calculated for the comet you selected. \n"
              << "For these calculations to be performed, please enter '1'. \n"
