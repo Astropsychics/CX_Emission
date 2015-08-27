@@ -17,7 +17,8 @@ using namespace std;
 double chi_energy_start = 0.370;
 double chi_energy_end = 0.95;
 
-int chi_squared(double energy_start, double energy_end, double energy_step, int comet_number){
+int chi_squared(double energy_start, double energy_end, double energy_step,
+                int comet_number, int model_number){
 
     //inputs comet name from comet_input.h
     string comet_name = input_comet_name[comet_number - 1];
@@ -98,7 +99,7 @@ int chi_squared(double energy_start, double energy_end, double energy_step, int 
         }
     }
 
-    cout << comet_name << " chi squared: " << chi_squared_total/(row_temp - cx_variables) << endl;
+    cout << comet_name << " chi squared: " << chi_squared_total/(row_temp - cx_variables[model_number]) << endl;
 
     //Outputs the chi squared and chi squared residual arrays
     string output_name_chi_res = "../Results/" + comet_name + "/Chandra_CX_chi_squared_residual_"+ comet_name + ".dat";
