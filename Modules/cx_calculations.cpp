@@ -18,7 +18,7 @@ int cx_calculations(double energy_start, double energy_end,
     //calculates numbers of steps and creates appropriately-sized array
     double energy = energy_start;
     int energy_row = (energy_end - energy_start)/energy_step + 1;
-    
+
     vector<double> input_energy(energy_row, 0);
 
     for ( int x = 0; x < energy_row; x++ ){
@@ -76,7 +76,8 @@ int cx_calculations(double energy_start, double energy_end,
                 double amplitude = area / ( width * sqrt(2*M_PI) );
 
                 //define a Gaussian function for the cx peaks
-                cx_spectrum[q] += amplitude * exp( -pow(input_energy[q] - peak,2.0) / (2 * width*width) );
+                cx_spectrum[q] += amplitude * exp( -(input_energy[q] - peak) *
+                    (input_energy[q] - peak)/ (2 * width*width) );
             }
         }
     }
