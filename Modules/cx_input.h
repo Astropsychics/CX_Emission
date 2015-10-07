@@ -10,7 +10,7 @@ int input_cx_elements[2] = {20,0};
 int cx_variables[2] = {8,0};
 
 //element order: C6+, C5+, N7+, N6+, N5+, O8+, O7+, O6+, Ne9+, Ne8+, Mg10+, Mg9+,
-//            Fe13+, Fe12+, Fe11+, Fe10+, Si9+, S10+, S9+, S8+
+//            Fe13+, Fe12+, Fe11+, Fe10+, Si10+, S11+, S10+, S9+
 
 //cross section, in units of 10-15 cm^2
 double input_cx_sigma[2][20] = {
@@ -109,8 +109,8 @@ string input_cx_line_name[2][20] =
         "Ne9collisionwithH2V0.20","Ne8CollisionwithH2V0.25",
         "Mg10CollisionwithH2V0.25","Mg9collisionwithH2","Fe13collisionwithH2",
         "Fe12collisionwithH2","Fe11collisionwithH2","Fe10collisionwithH2",
-        "Si9collisionwithH2","S10collisionwithH2","S9collisionwithH2",
-        "S8collisionwithH2"},
+        "Si10collisionwithH2","S11collisionwithH2","S10collisionwithH2",
+        "S9collisionwithH2"},
     {"xxxxxxxxx","xxxxxxxxx","xxxxxxxxx",
         "xxxxxxxxx","xxxxxxxxx","xxxxxxxxx","xxxxxxxxx","xxxxxxxxx","xxxxxxxxx",
         "xxxxxxxxx","xxxxxxxxx","xxxxxxxxx","xxxxxxxxx","xxxxxxxxx","xxxxxxxxx",

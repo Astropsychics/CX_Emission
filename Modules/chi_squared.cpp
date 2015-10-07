@@ -89,12 +89,18 @@ int chi_squared(double energy_start, double energy_end, double energy_step,
             chi_energy[row_temp] = obs_energy[i];
             double model_temp = gsl_spline_eval (spline_ptr_model, obs_energy[i], accel_ptr_model);
 
+            //standard chi-squared function
             //chi_squared[row_temp] = (obs_intensity[i] - model_temp)*(obs_intensity[i] - model_temp)/model_temp;
-            //chi_squared_total += (obs_intensity[i] - model_temp)*(obs_intensity[i] - model_temp)/model_temp;
+
+            //gaussian distribution chi-squared function
             chi_squared[row_temp] = (obs_intensity[i] - model_temp)*(obs_intensity[i] - model_temp)/(obs_intensity_err[i] * obs_intensity_err[i]);
             chi_squared_total += chi_squared[row_temp];
 
-            if ( row_temp > 0 ) delta_chi_squared[row_temp] = chi_squared[row_temp] - chi_squared[row_temp-1];
+            //delta chi squared must be differences expressed in sigmas,
+            //and so results are formate to be equally distributed around zero
+            if (obs_intensity[i] > model_temp) delta_chi_squared[row_temp] = (obs_intensity[i] - model_temp)*(obs_intensity[i] - model_temp)/(obs_intensity_err[i] * obs_intensity_err[i]);
+            else delta_chi_squared[row_temp] = - (obs_intensity[i] - model_temp)*(obs_intensity[i] - model_temp)/(obs_intensity_err[i] * obs_intensity_err[i]);
+
             row_temp++;
         }
     }
@@ -109,6 +115,10 @@ int chi_squared(double energy_start, double energy_end, double energy_step,
     for( int i=0; i<chi_row; i++ ){
         output_file_chi_res << scientific << chi_energy[i] << " " << delta_chi_squared[i] << endl;
         output_file_chi << scientific << chi_energy[i] << " " << chi_squared[i] << endl;
+
+        //Use these outputs if you require a middle step plot in xmgrace
+        //output_file_chi_res << scientific << chi_energy[i] - (chi_energy[i+1]-chi_energy[i])/2 << " " << delta_chi_squared[i] << endl;
+        //output_file_chi << scientific << chi_energy[i]  - (chi_energy[i+1]-chi_energy[i])/2 << " " << chi_squared[i] << endl;
     }
     output_file_chi_res.close();
     output_file_chi.close();
