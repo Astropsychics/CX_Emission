@@ -15,7 +15,7 @@ using namespace std;
 
 //Energy range for chi squared calculations
 double chi_energy_start = 0.370;
-double chi_energy_end = 0.95;
+double chi_energy_end = 1.0;
 
 int chi_squared(double energy_start, double energy_end, double energy_step,
                 int comet_number, int model_number){

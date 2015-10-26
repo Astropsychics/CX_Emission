@@ -16,7 +16,7 @@ using namespace std;
 double energy_start = 0.10;
 double energy_end = 2.0;
 double energy_step = 0.01;
-double width = 0.050;
+double width = 0.045;
 
 int main(int argc, char *argv[]){
 

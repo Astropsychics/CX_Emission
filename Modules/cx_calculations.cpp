@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 #include <fstream>
 #include <stdio.h>
 #include <cmath>
@@ -44,13 +44,13 @@ int cx_calculations(double energy_start, double energy_end,
 
         string line_string;
         string cx_line_name = input_cx_line_name[model_number][x];
-        string cx_sw_name = input_cx_sw_name[sw_speed];
+        string cx_sw_speed_name = input_cx_sw_speed_name[sw_speed];
 
         //reads in line spectrum from selected model
         if( model_number == 0 ){
             line_string = "../Inputs/CX_Tables/Kharchenko/" + cx_line_name + ".dat";}
         else {
-            line_string = "../Inputs/CX_Tables/Stancil/" + cx_sw_name + "/" +
+            line_string = "../Inputs/CX_Tables/Stancil/" + cx_sw_speed_name + "/" +
                 cx_line_name + ".dat"; }
 
         fstream input(line_string.c_str(), fstream::in);
