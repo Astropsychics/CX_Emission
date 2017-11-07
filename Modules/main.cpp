@@ -14,7 +14,7 @@ using namespace std;
 
 //defines energy range and step size
 double energy_start = 0.10;
-double energy_end = 2.0;
+double energy_end = 1.0;
 double energy_step = 0.01;
 double width = 0.045;
 
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]){
     }
 
     //Prompts user to calculate chi-square for all comets with the necessary data
-    if ( comet_number >= 6 && comet_number <= 18 ){
+    if ( comet_number == 3 || (comet_number >= 6 && comet_number <= 18) ){
         cout << "Good news, everyone!\n"
              << "Chi-square can be calculated for the comet you selected.\n"
              << "For these calculations to be performed, please enter '1'.\n"

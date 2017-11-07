@@ -8,7 +8,7 @@ SRCS	= ../Modules/main.cpp
 OBJS	= $(SRCS:.cpp=.o)
 
 
-DUST_SCAT: $(SRCS)
+CX: $(SRCS)
 	$(CXX) $(INCLUDES) -o MAIN $(SRCS) $(LDLIBS)
 
 clean:

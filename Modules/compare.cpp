@@ -81,7 +81,7 @@ int cx_compare(double energy_start, double energy_end, double energy_step, int c
 
     //multiplies model with ACIS effective area
     double model_intensity[energy_row];
-    
+
     for (int i=0; i<energy_row; i++){
         int j = 0;
         while ( input_area[j][1] <= input_energy[i] ) j++;
@@ -96,26 +96,42 @@ int cx_compare(double energy_start, double energy_end, double energy_step, int c
     gsl_spline_init (spline_ptr_model, spectrum_energy, model_intensity, energy_row);
 
 
-    //calculates the average ratio between the observational data and the model to find an
-    //optimal scaling factor
-    double scaling_factor = 0;
-    double counter = 0;
+    //Calculates the average ratio between the observational data and the model to find an
+    //optimal scaling factor. Scaling is broken into 'low' and 'high'ranges to
+    //account for higher confidence in the model at lower energies due to a larger
+    //abundance of modeled emission lines
+    double scaling_factor_low = 0;
+    double counter_low = 0;
+    double scaling_factor_high = 0;
+    double counter_high = 0;
 
-    for ( float energy = 0.400 ; energy <= 0.750; energy += 0.010 ){
+    for ( float energy = 0.400 ; energy <= 0.700; energy += 0.02 ){
         double obs_temp = gsl_spline_eval (spline_ptr_obs, energy, accel_ptr_obs);
         double model_temp = gsl_spline_eval (spline_ptr_model, energy, accel_ptr_model);
 
-        scaling_factor += obs_temp / model_temp;
-        counter++;
+        scaling_factor_low += obs_temp / model_temp;
+        counter_low++;
+    }
+    for ( float energy = 0.700 ; energy <= 0.900; energy += 0.02 ){
+        double obs_temp = gsl_spline_eval (spline_ptr_obs, energy, accel_ptr_obs);
+        double model_temp = gsl_spline_eval (spline_ptr_model, energy, accel_ptr_model);
+
+        scaling_factor_high += obs_temp / model_temp;
+        counter_high++;
     }
 
-    double average_scaling_factor = scaling_factor/counter;
+    //Performs weighted average on the two scaling factors to account for higher
+    //confidence in lower energies; currently set at 80/20 ratio due to ratio
+    //of emission lines present within each energy region
+    double average_scaling_factor = 0.8*scaling_factor_low/counter_low +
+        0.2*scaling_factor_high/counter_high;
 
     //outputs re-scaled intensity spectrum
     string output_name_spectrum = "../Results/" + comet_name + "/CX_spectrum_"+ comet_name + ".dat";
     ofstream output_file_spectrum(output_name_spectrum.c_str());
     for( int i=0; i<energy_row; i++ ){
-        output_file_spectrum << scientific << spectrum_energy[i] << " " << spectrum_intensity[i]*average_scaling_factor << endl;
+        output_file_spectrum << scientific << spectrum_energy[i] << " "
+            << spectrum_intensity[i]*average_scaling_factor << endl;
     }
     output_file_spectrum.close();
 
